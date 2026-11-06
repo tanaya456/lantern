@@ -10,6 +10,8 @@ Built for the Women in AI Claude Hackathon (climate track).
 
 **Live demo:** https://lantern-gold-eight.vercel.app
 
+**Demo video:** [Watch the demo (lantern-demo.mov)](https://github.com/tanaya456/lantern/raw/main/docs/lantern-demo.mov)
+
 ![Lantern landing page: live global disaster heat map](docs/landing.png)
 
 ## The problem
