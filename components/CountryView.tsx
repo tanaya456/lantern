@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { eventTitle } from "@/lib/eventTitle";
+import AddressSearch, { type AddressHit } from "@/components/AddressSearch";
 import PastDisasters from "@/components/PastDisasters";
 import type { Country } from "@/lib/countries";
 import { useT, type StrKey } from "@/lib/i18n";
@@ -23,7 +24,11 @@ export default function CountryView({
   emdat,
   onPick,
   onBack,
+  onAddress,
+  busy,
 }: {
+  onAddress: (a: AddressHit) => void;
+  busy: boolean;
   country: Country;
   personas: Persona[];
   events: LiveEvent[];
@@ -84,24 +89,33 @@ export default function CountryView({
         <div className="space-y-6 lg:col-span-2">
           <div className="rounded-2xl border-2 border-sage-700 bg-surface p-5">
             <h3 className="font-semibold text-stone-900">{t("country.getPlan")}</h3>
-            <form
-              className="mt-3 flex gap-2"
-              onSubmit={(e) => {
-                e.preventDefault();
-                if (address.trim()) onPick(personas[0], address.trim());
-              }}
-            >
-              <label htmlFor="addr" className="sr-only">{t("country.addr")}</label>
-              <input
-                id="addr"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder={t("country.addr")}
-                className="min-h-11 flex-1 rounded-xl border border-stone-300 px-3 outline-none focus:border-sage-700 focus:ring-2 focus:ring-sage-700/20"
-              />
-              <button className="min-h-11 rounded-xl bg-sage-700 px-4 font-semibold text-white hover:bg-sage-800">{t("country.go")}</button>
-            </form>
-            <p className="mt-1 text-xs text-stone-500">{t("country.typedNote")}</p>
+            {country.iso3 === "USA" ? (
+              <div className="mt-3">
+                <AddressSearch onPick={onAddress} busy={busy} />
+                <p className="mt-1 text-xs text-stone-500">Real FEMA risk data, flood zone and weather alerts for any US address.</p>
+              </div>
+            ) : (
+              <>
+              <form
+                className="mt-3 flex gap-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (address.trim()) onPick(personas[0], address.trim());
+                }}
+              >
+                <label htmlFor="addr" className="sr-only">{t("country.addr")}</label>
+                <input
+                  id="addr"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder={t("country.addr")}
+                  className="min-h-11 flex-1 rounded-xl border border-stone-300 px-3 outline-none focus:border-sage-700 focus:ring-2 focus:ring-sage-700/20"
+                />
+                <button className="min-h-11 rounded-xl bg-sage-700 px-4 font-semibold text-white hover:bg-sage-800">{t("country.go")}</button>
+              </form>
+              <p className="mt-1 text-xs text-stone-500">{t("country.typedNote")}</p>
+              </>
+            )}
             <p className="mt-4 text-sm font-medium text-stone-800">{t("country.meet")}</p>
             <div className="mt-2 space-y-2">
               {personas.map((p) => (

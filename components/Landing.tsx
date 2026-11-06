@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import AddressSearch, { type AddressHit } from "@/components/AddressSearch";
 import { COUNTRIES } from "@/lib/countries";
 import { eventTitle } from "@/lib/eventTitle";
 import { useT, type StrKey } from "@/lib/i18n";
@@ -19,11 +18,7 @@ export default function Landing({
   eventsCached,
   heat,
   onCountry,
-  onAddress,
-  busy,
 }: {
-  onAddress: (a: AddressHit) => void;
-  busy: boolean;
   heat: [number, number, number][];
   events: LiveEvent[] | null;
   eventsCached: boolean;
@@ -81,7 +76,6 @@ export default function Landing({
             {t("land.h1a")} <span className="text-lantern">{t("land.h1b")}</span>
           </h1>
           <p className="mt-2 text-lg text-stone-700">{t("land.sub")}</p>
-          <div className="mt-4"><AddressSearch onPick={onAddress} busy={busy} /></div>
         </div>
         <div className="flex shrink-0 items-center gap-2 rounded-full border border-line bg-surface px-3 py-1.5 text-sm text-stone-700">
           <span className="relative flex h-2.5 w-2.5" aria-hidden>

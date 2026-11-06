@@ -200,7 +200,7 @@ function Home() {
 
       <div id="main">
         {step === "world" && (
-          <Landing events={events} eventsCached={eventsCached} heat={heat} onCountry={openCountry} onAddress={pickAddress} busy={busy} />
+          <Landing events={events} eventsCached={eventsCached} heat={heat} onCountry={openCountry} />
         )}
 
         {step === "country" && country && (
@@ -215,6 +215,8 @@ function Home() {
               emdat={EMDAT[country.iso3]}
               onPick={pickPersona}
               onBack={goWorld}
+              onAddress={pickAddress}
+              busy={busy}
             />
           </main>
         )}
