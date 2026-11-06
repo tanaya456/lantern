@@ -1,4 +1,4 @@
-# Safe Harbor: Spec
+# Lantern (formerly Safe Harbor): Spec
 
 > Enter an address. See your climate risk through a gender and recovery-capacity lens. Get a personal emergency plan, matched funding programs, and insurance guidance, built on real public data and Claude.
 
@@ -135,7 +135,7 @@ If time runs short, cut in this order: CalEnviroScreen layer → Census ACS demo
 ## 12. Pitch (3 min)
 
 1. Hook: female-headed households lose more and recover slower
-2. Existing scores price risk; Safe Harbor helps you act on it
+2. Existing scores price risk; Lantern helps you act on it
 3. Maria: enter her address and details → Risk, Plan, Funding, Insurance
 4. Click **Simulate Flash Flood Warning** → the plan updates and a Spanish "what to do now" banner appears
 5. Close: same alert, a personal plan, and a path to recovery

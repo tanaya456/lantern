@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #d8ebf6;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* Lantern palette: muted sage + warm paper */
+  --color-paper: #d8ebf6;   /* page: soft sky blue */
+  --color-sand: #c9e2f1;    /* header band */
+  --color-surface: #ffffff; /* cards */
+  --color-line: #bcd7e8;    /* borders */
+  --color-sage-50: #f3f6f1;
+  --color-sage-100: #e4eadf;
+  --color-sage-200: #cbd6c4;
+  --color-sage-300: #aebfa5;
+  --color-sage-400: #8fa487;
+  --color-sage-500: #6f8b74;
+  --color-sage-600: #5b7660;
+  --color-sage-700: #4e6653;
+  --color-sage-800: #3e5242;
+  --color-sage-900: #2f3e32;
+  --color-clay-600: #a94f38;
+  --color-clay-700: #8f4230;
+  --color-lantern: #b8862b;
+}
+
+
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+@keyframes slidein {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media print {
+  body { background: white; }
+  .shadow-sm { box-shadow: none !important; }
+}
