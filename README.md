@@ -6,7 +6,9 @@ Lantern turns public disaster data into a plain-language plan for you and the pe
 
 Built for the Women in AI Claude Hackathon (climate track).
 
-**Live demo:** [add your Vercel link here]
+**Team:** Caroline Guirgis, Tanaya Salunkhe, Sabrina Cao, Kendall Lobo
+
+**Live demo:** https://lantern-gold-eight.vercel.app
 
 ![Lantern landing page: live global disaster heat map](docs/landing.png)
 
