@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Globe, { type GlobeMethods } from "react-globe.gl";
-import { MeshPhongMaterial } from "three";
+import { MeshBasicMaterial } from "three";
 import type { LiveEvent } from "@/lib/live";
 
 const EXPLORE = new Set(["PHL", "NZL", "USA"]);
@@ -61,16 +61,16 @@ export default function SpinningGlobe({
   const onReady = () => {
     const g = globe.current;
     if (!g) return;
-    g.pointOfView({ lat: 12, lng: 175, altitude: 1.75 }, 0);
+    g.pointOfView({ lat: 14, lng: 175, altitude: 1.55 }, 0);
     const c = g.controls();
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     c.autoRotate = !reduce;
-    c.autoRotateSpeed = 0.45;
+    c.autoRotateSpeed = 0.35;
     c.enableZoom = false;
     c.addEventListener("start", () => (c.autoRotate = false));
   };
 
-  const ocean = useMemo(() => new MeshPhongMaterial({ color: "#a9d3ec", emissive: "#5d93b8", emissiveIntensity: 0.35, shininess: 6 }), []);
+  const ocean = useMemo(() => new MeshBasicMaterial({ color: "#f6fafc" }), []);
   const heatData = useMemo(() => heat.map(([lat, lng, weight]) => ({ lat, lng, weight })), [heat]);
   const rings = useMemo(() => events.filter((e) => e.alert === "Red").map((e) => ({ lat: e.lat, lng: e.lon })), [events]);
 
@@ -82,18 +82,19 @@ export default function SpinningGlobe({
         height={size.h}
         backgroundColor="rgba(0,0,0,0)"
         showAtmosphere
-        atmosphereColor="#9cc9e6"
-        atmosphereAltitude={0.18}
+        atmosphereColor="#ffffff"
+        atmosphereAltitude={0.08}
+        showGraticules
         globeMaterial={ocean}
         onGlobeReady={onReady}
         polygonsData={countries}
-        polygonAltitude={(d) => ((d as CountryFeature).properties.iso3 === hover ? 0.03 : EXPLORE.has((d as CountryFeature).properties.iso3) ? 0.015 : 0.006)}
+        polygonAltitude={(d) => ((d as CountryFeature).properties.iso3 === hover ? 0.012 : 0.003)}
         polygonCapColor={(d) => {
           const iso = (d as CountryFeature).properties.iso3;
-          return EXPLORE.has(iso) ? (iso === hover ? "#5b7660" : "#8fa487") : "#f4f1e8";
+          return EXPLORE.has(iso) ? (iso === hover ? "rgba(91,118,96,0.55)" : "rgba(143,164,135,0.3)") : "rgba(0,0,0,0)";
         }}
-        polygonSideColor={() => "rgba(78,102,83,0.25)"}
-        polygonStrokeColor={() => "#b9c7b3"}
+        polygonSideColor={() => "rgba(0,0,0,0)"}
+        polygonStrokeColor={() => "#2f3e32"}
         polygonLabel={(d) => {
           const p = (d as CountryFeature).properties;
           return EXPLORE.has(p.iso3) ? `<b>${p.name}</b><br/>Click to explore` : p.name;
@@ -104,20 +105,17 @@ export default function SpinningGlobe({
           if (EXPLORE.has(iso)) onCountryClick(iso);
         }}
         polygonsTransitionDuration={200}
-        hexBinPointsData={heatData}
-        hexBinPointLat="lat"
-        hexBinPointLng="lng"
-        hexBinPointWeight="weight"
-        hexBinResolution={3}
-        hexMargin={0.15}
-        hexAltitude={(d) => Math.min(0.12, 0.004 + (d as { sumWeight: number }).sumWeight * 0.012)}
-        hexTopColor={(d) => heatColor(Math.min(1, 0.25 + (d as { sumWeight: number }).sumWeight / 4))}
-        hexSideColor={(d) => heatColor(Math.min(1, 0.2 + (d as { sumWeight: number }).sumWeight / 5))}
-        hexBinMerge={true}
-        hexTransitionDuration={0}
+        pointsData={heatData}
+        pointLat="lat"
+        pointLng="lng"
+        pointAltitude={0.004}
+        pointRadius={(d) => 0.18 + (d as { weight: number }).weight * 0.32}
+        pointColor={(d) => heatColor(0.35 + (d as { weight: number }).weight * 0.6)}
+        pointsMerge={true}
+        pointsTransitionDuration={0}
         ringsData={rings}
         ringColor={() => (t: number) => `rgba(185,28,28,${1 - t})`}
-        ringMaxRadius={5}
+        ringMaxRadius={4}
         ringPropagationSpeed={2}
         ringRepeatPeriod={1400}
       />

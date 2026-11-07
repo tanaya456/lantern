@@ -86,7 +86,7 @@ export default function Landing({
         </div>
       </div>
 
-      <div id="map" className="relative h-[62vh] min-h-[420px] scroll-mt-4 overflow-hidden rounded-3xl border border-line bg-[radial-gradient(circle_at_50%_45%,#eef7fc_0%,#d8ebf6_55%,#c4def0_100%)] lg:h-[70vh]">
+      <div id="map" className="relative h-[66vh] min-h-[460px] scroll-mt-4 overflow-hidden lg:h-[74vh]">
         <SpinningGlobe heat={heat} events={events ?? []} onCountryClick={onCountry} />
 
         <div className="pointer-events-none absolute inset-0 z-[500] hidden p-4 lg:flex lg:flex-col lg:items-start lg:justify-between">
