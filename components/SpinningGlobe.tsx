@@ -61,7 +61,7 @@ export default function SpinningGlobe({
   const onReady = () => {
     const g = globe.current;
     if (!g) return;
-    g.pointOfView({ lat: 14, lng: 175, altitude: 1.55 }, 0);
+    g.pointOfView({ lat: 14, lng: 175, altitude: 1.1 }, 0);
     const c = g.controls();
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     c.autoRotate = !reduce;
@@ -75,7 +75,7 @@ export default function SpinningGlobe({
   const rings = useMemo(() => events.filter((e) => e.alert === "Red").map((e) => ({ lat: e.lat, lng: e.lon })), [events]);
 
   return (
-    <div ref={wrap} className="h-full w-full cursor-grab active:cursor-grabbing" aria-label="Spinning globe of current disaster activity">
+    <div ref={wrap} className="h-full w-full cursor-grab [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_88%,transparent_100%)] active:cursor-grabbing" aria-label="Spinning globe of current disaster activity">
       <Globe
         ref={globe}
         width={size.w}
