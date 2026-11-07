@@ -6,7 +6,7 @@ import { eventTitle } from "@/lib/eventTitle";
 import { useT, type StrKey } from "@/lib/i18n";
 import { ALERT_COLOR, type LiveEvent } from "@/lib/live";
 
-const WorldMap = dynamic(() => import("@/components/WorldMap"), { ssr: false, loading: () => <MapLoading /> });
+const SpinningGlobe = dynamic(() => import("@/components/SpinningGlobe"), { ssr: false, loading: () => <MapLoading /> });
 
 function MapLoading() {
   const t = useT();
@@ -86,8 +86,8 @@ export default function Landing({
         </div>
       </div>
 
-      <div id="map" className="relative h-[62vh] min-h-[420px] scroll-mt-4 overflow-hidden rounded-3xl border border-line bg-surface lg:h-[70vh]">
-        <WorldMap pacific center={[15, 185]} zoom={2} events={events ?? []} heat={heat} onCountryClick={onCountry} zoomPosition="topright" />
+      <div id="map" className="relative h-[62vh] min-h-[420px] scroll-mt-4 overflow-hidden rounded-3xl border border-line bg-[radial-gradient(circle_at_50%_45%,#eef7fc_0%,#d8ebf6_55%,#c4def0_100%)] lg:h-[70vh]">
+        <SpinningGlobe heat={heat} events={events ?? []} onCountryClick={onCountry} />
 
         <div className="pointer-events-none absolute inset-0 z-[500] hidden p-4 lg:flex lg:flex-col lg:items-start lg:justify-between">
           <div className="pointer-events-auto w-72 rounded-2xl bg-surface/95 p-4 shadow-lg backdrop-blur">{countryList}</div>
